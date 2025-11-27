@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SITTA - Sistem Informasi Bahan Ajar UT</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <header class="main-header">
+        <h1>📦 SITTA - Sistem Informasi Bahan Ajar</h1>
+        <p>Universitas Terbuka</p>
+      </header>
+
+      <!-- Tab Navigation -->
+      <nav class="tab-nav">
+        <button
+          @click="currentTab = 'stok'"
+          :class="{ active: currentTab === 'stok' }"
+          class="tab-button"
+        >
+          📦 Stok Bahan Ajar
+        </button>
+        <button
+          @click="currentTab = 'tracking'"
+          :class="{ active: currentTab === 'tracking' }"
+          class="tab-button"
+        >
+          🚚 Tracking DO
+        </button>
+      </nav>
+
+      <main class="main-content">
+        <!-- Stock Table Component -->
+        <ba-stock-table
+          v-if="currentTab === 'stok'"
+          :stok-data="stokData"
+          :upbjj-list="upbjjList"
+          :kategori-list="kategoriList"
+          @update-stok="handleUpdateStok"
+          @delete-stok="handleDeleteStok"
+        >
+        </ba-stock-table>
+
+        <!-- DO Tracking Component -->
+        <do-tracking
+          v-if="currentTab === 'tracking'"
+          :tracking-data="trackingData"
+          :paket-list="paketList"
+          :pengiriman-list="pengirimanList"
+          :stok-data="stokData"
+          @create-do="handleCreateDO"
+          @add-progress="handleAddProgress"
+        >
+        </do-tracking>
+      </main>
+
+      <footer class="main-footer">
+        <p>
+          &copy; 2025 Universitas Terbuka - Tugas Praktik 3 Vue.js Components
+        </p>
+      </footer>
+    </div>
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+
+    <!-- Services -->
+    <script src="js/services/api.js"></script>
+
+    <!-- Components -->
+    <script src="js/components/status-badge.js"></script>
+    <script src="js/components/app-modal.js"></script>
+    <script src="js/components/stock-table.js"></script>
+    <script src="js/components/do-tracking.js"></script>
+
+    <!-- Main App -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
